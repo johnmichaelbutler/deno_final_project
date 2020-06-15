@@ -24,7 +24,7 @@ router.get("/planets", (ctx) => {
 
 router.get("/launches", (ctx) => {
   ctx.response.body = launches.getAll();
-})
+});
 
 router.get("/launches/:id", (ctx) => {
   // If there is an id in the params, we want to get data from that one launch. Also make params optional which will return undefined if not there
@@ -35,6 +35,22 @@ router.get("/launches/:id", (ctx) => {
     } else {
       ctx.throw(400, "Launch with that ID doesn't exist");
     }
+  }
+});
+
+router.post("/launches", async (ctx) => {
+  const body = await ctx.request.body();
+
+  launches.addOne(body.value);
+
+  ctx.response.body = { success: true };
+  ctx.response.status = 201;
+});
+
+router.delete("/launches/:id", (ctx) => {
+  if(ctx.params?.id) {
+    const result = launches.removeOne(Number(ctx.params.id));
+    ctx.response.body = { success: result }
   }
 })
 

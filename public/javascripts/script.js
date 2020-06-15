@@ -25,7 +25,6 @@ async function loadLaunches() {
 
 
 async function loadPlanets() {
-  // TODO: Once API is ready.
   try {
     const planetsPath = `/planets`;
     const response = await fetch(planetsPath);
@@ -41,9 +40,12 @@ async function loadPlanets() {
   }
 }
 
-function abortLaunch() {
-  // TODO: Once API is ready.
-  // Delete launch and reload launches.
+function abortLaunch(id) {
+  return fetch(`/launches/${id}`, {
+    method: "delete",
+  })
+  .then(loadLaunches)
+  .then(listUpcoming);
 }
 
 function submitLaunch() {
@@ -53,18 +55,23 @@ function submitLaunch() {
   const rocket = document.getElementById("rocket-name").value;
   const flightNumber = launches[launches.length - 1]?.flightNumber + 1 || 1;
 
-  // const customers = ['NASA', 'ZTM'];
-
-  // launches.push({
-  //   target,
-  //   launchDate: launchDate/1000,
-  //   mission,
-  //   rocket,
-  //   flightNumber,
-  //   customers
-  // });
-
-  // document.getElementById("launch-success").hidden = false;
+  return fetch("/launches", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      launchDate: Math.floor(launchDate / 1000),
+      flightNumber,
+      mission,
+      rocket,
+      target,
+    })
+  })
+    .then(() => {
+      document.getElementById("launch-success").hidden = false;
+    })
+    .then(loadLaunches);
 
   // TODO: Once API is ready.
   // Submit above data to launch system and reload launches.

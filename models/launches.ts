@@ -47,6 +47,7 @@ export async function downloadLaunchData() {
       // No target field since any fetched data won't have a target
     };
 
+    // Sets our launch object with a key of flightNumber and our flightData as value
     launches.set(flightData.flightNumber, flightData);
 
     log.info(JSON.stringify(flightData));
@@ -69,4 +70,20 @@ export function getOne(id: number) {
     return launches.get(id);
   }
   return null;
+};
+
+export function addOne(data : Launch) {
+  launches.set(data.flightNumber, Object.assign(data, {
+    upcoming: true,
+    customers: ["Zero to Mastery", "NASA"]
+  }));
+};
+
+export function removeOne(id: number) {
+  const aborted = launches.get(id);
+  if(aborted) {
+    aborted.upcoming = false;
+    aborted.success = false;
+  }
+  return aborted;
 }

@@ -28,7 +28,7 @@ app.addEventListener("error", (event) => {
 
 // Error handling middleware
 app.use(async (ctx, next) => {
-  // If any of hte downstream middleware throw errors, we will catc herer
+  // If any of the downstream middleware throw errors, we will catch here
   try {
     await next();
   } catch(err) {
@@ -50,7 +50,9 @@ app.use(async (ctx, next) => {
   ctx.response.headers.set("X-Response-Time", `${ms}ms`);
 });
 
+// Access our routes in api.ts
 app.use(api.routes());
+// Gives us an option to make an 'options' request to the path.
 app.use(api.allowedMethods());
 
 app.use(async (ctx) => {
@@ -70,7 +72,7 @@ app.use(async (ctx) => {
 })
 
 if(import.meta.main) {
-  log.info('Starting server on port ${PORT}....');
+  log.info(`Starting server on port ${PORT}....`);
   await app.listen({
     port: PORT
   });
