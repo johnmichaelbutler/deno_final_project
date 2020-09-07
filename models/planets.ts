@@ -1,8 +1,5 @@
-import { join } from "https://deno.land/std/path/mod.ts";
-import { BufReader } from "https://deno.land/std/io/bufio.ts";
-import { parse } from "https://deno.land/std/encoding/csv.ts";
-import * as _ from "https://raw.githubusercontent.com/lodash/lodash/4.17.15-es/lodash.js";
-import * as log from "https://deno.land/std/log/mod.ts";
+import { join, BufReader, parse, _, log  } from "../src/deps.ts";
+
 // interface Planet {
 //  An object where the index "hence the braces" are our key which is a string and the value is a string
 // [ key : string ] : string

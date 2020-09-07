@@ -6,7 +6,7 @@
  * 3. Built-in test features with Deno.test()
  */
 
-import { assertEquals, assertNotEquals } from 'https://deno.land/std/testing/asserts.ts';
+import { assertEquals, assertNotEquals } from '../src/test_deps.ts';
 
 import { filterHabitablePlanets } from './planets.ts';
 

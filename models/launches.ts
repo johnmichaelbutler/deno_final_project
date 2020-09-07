@@ -1,6 +1,4 @@
-import * as log from "https://deno.land/std/log/mod.ts";
-import * as _ from "https://raw.githubusercontent.com/lodash/lodash/4.17.15-es/lodash.js";
-
+import { log, _ } from '../src/deps.ts';
 interface Launch {
   flightNumber: number;
   mission: string;
